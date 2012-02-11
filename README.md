@@ -82,6 +82,12 @@ Returns a promise that is already resolved to the value `v`.
 Returns a promise for the result of calling `f`. If an exception is raised in `f` then the promise is rejected. Turns a 
 synchronouse function into a promise.
 
+### yap.timeout(delay, [value])
+
+Returns a promise that will resolve to `value` (or `undefined` if missing) after delay milliseconds. This returns a promise
+that contains a `cancel()` method as well that allows the callback to be cancelled. If it is cancelled the promise will 
+never be resolved.
+
 ### deferral.resolve(v)
 
 Resolves a `deferral` with value `v`. Once a `deferral` is resolved subsequent calls to `resolve()`, `progress()` and 
@@ -109,7 +115,7 @@ Returns the `promise` that for the work that communicates it result with a `defe
 itself a `promise`, it should not be available outside the asynchronouse task. Use the `promise` returned by 
 `promise()` instead.
 
-### promise.then(fulfilledHandler, errorHandler, progressHandler)
+### promise.then(fulfilledHandler, [errorHandler], [progressHandler])
 
 Supply callback to be called when the promise is either fulfilled, rejected or is reporting progress. This is the
 central method of the promise pattern. The `then()` method returns the promise itself which allows the promise
