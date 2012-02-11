@@ -2,7 +2,6 @@
 // Licensed via the Microsoft Reciprocal License (MS-RL) (http://opensource.org/licenses/MS-RL)
 
 (function () {
-    // using a module pattern here lets uglify know it can rewrite module local identifiers.
 
     function marker() { }
 
@@ -195,12 +194,27 @@
         return d.promise();
     }
 
+    function timeout(delay, value) {
+        var timer;
+        var p = defer(function (resolve) {
+            timer = setTimeout(function () {
+                timer = 0;
+                resolve(value);
+            }, delay);
+        });
+        p.cancel = function () {
+            if (timer) clearTimeout(timer);
+        };
+        return p;
+    }
+
     exports.deferral = deferral;
     exports.all = all;
     exports.is = function (p) { return p instanceof marker; }
     exports.like = promiseLike;
-    exports.resolved = function (v) { var result = deferal(); result.resolve(v); return result.promise(); }
+    exports.resolved = function (v) { var result = deferral(); result.resolve(v); return result.promise(); }
     exports.sync = sync;
     exports.defer = defer;
     exports.notify = function (f) { notifications.push(f); }
+    exports.timeout = timeout;
 })();

@@ -2,6 +2,11 @@
 
 An implementation of the **Promise/A** specification from **Common/JS** (http://wiki.commonjs.org/wiki/Promises/A)
 
+## Summary
+
+yap is used to implement asynchronous methods and provides a consistent mechanism to handle the results and report
+errors.
+
 ## Funtions
 
 ### yap.all(a)
