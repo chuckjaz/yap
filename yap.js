@@ -81,14 +81,11 @@
                     var r = resolveCalls[i](resolvedWith);
                     if (typeof r !== "undefined") {
                         if (promiseLike(r)) {
-                            resolveCalls = resolveCalls.slice(i + 1);
-                            if (resolveCalls.length > 0) {
-                                resolved = false;
-                                var that = this;
-                                r.then(function (v) { resolve(v); },
-                                reject, progress);
-                                break;
-                            }
+                            resolveCalls = resolveCalls.slice(i + 1);                            
+                            resolved = false;
+                            var that = this;
+                            r.then(function (v) { resolve(v); }, reject, progress);
+                            break;
                         }
                         resolvedWith = r;
                     }
